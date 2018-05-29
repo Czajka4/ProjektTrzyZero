@@ -4,10 +4,14 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import net.Broadcast;
+import net.UDPServer;
 import net.miginfocom.swing.MigLayout;
 
 public class MainFrame extends JFrame {
@@ -90,8 +94,26 @@ public class MainFrame extends JFrame {
 
 		
 		
-		public static void main(String[] args) {
+		public static void main(String[] args) throws Exception {
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		mFrame = new MainFrame();//Creating Frame ( application )
+		Runnable connection = new Runnable() {
+            @Override
+            public void run() {
+
+                
+                	try {
+						UDPServer.serwer();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                	
+            }
+           
+		};
+		Broadcast.send_message("dupka");
+		
 		mFrame.setVisible(true);
 		mFrame.setResizable(false);
 		
