@@ -1,18 +1,25 @@
 package net;
+import java.net.BindException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class UDPServer {
-/*
+
 	 static DatagramSocket datagramSocket;
 	
 	
-    public static void serwer(String[] args) throws Exception{
+    public static void serwer() throws Exception{
 
         //Otwarcie gniazda z okreslonym portem
-        datagramSocket = new DatagramSocket(Config.PORT);
-
+    	try{
+    		datagramSocket = new DatagramSocket(Config.PORT);
+    		}
+    	catch (Exception BindException)
+    	{
+    		datagramSocket = new DatagramSocket(9001);
+    	}
+    	
         byte[] byteResponse = "OK".getBytes("utf8");
 
         while (true){
@@ -25,12 +32,12 @@ public class UDPServer {
             int length = reclievedPacket.getLength();
             String message =
                     new String(reclievedPacket.getData(), 0, length, "utf8");
-
+            System.out.println(message);
             // Port i host który wysłał nam zapytanie
             InetAddress address = reclievedPacket.getAddress();
             int port = reclievedPacket.getPort();
 
-            System.out.println(message);
+            
            
 
             DatagramPacket response
@@ -40,5 +47,5 @@ public class UDPServer {
             datagramSocket.send(response);
         }
     }
-    */
+    
 }
