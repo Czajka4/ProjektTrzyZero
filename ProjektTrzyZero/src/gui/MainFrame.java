@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.net.DatagramSocket;
 import java.net.Inet4Address;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -104,6 +105,7 @@ public class MainFrame extends JFrame {
 		
 		
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
+		ExecutorService executorService2 = Executors.newFixedThreadPool(10);
 		mFrame = new MainFrame();//Creating Frame ( application )
 		Runnable broadcast = new Runnable() {
             @Override
@@ -120,28 +122,39 @@ public class MainFrame extends JFrame {
             }
            
 		};
-//		Runnable connection = new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                
-//                	try {
-//                		broadcastListener.serwer();
-//					} catch (Exception e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//                	
-//            }
-//           
-//		};
+		Runnable connection = new Runnable() {
+            @Override
+            public void run() {
+
+                
+                	try {
+                		mySocket.message_listener();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                	
+            }
+           
+		};
 		mFrame.setVisible(true);
 		mFrame.setResizable(false);
 		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
 		
 		executorService.submit(broadcast); //w³¹czenie nas³uchiwania innych u¿ytkowników
+		executorService2.submit(connection); //nas³uchiwanie rozmów
 		mySocket.hello(); // wys³anie wiadomoœci ze swoim nickiem
-		//executorService.submit(connection);
+		Scanner keyboard = new Scanner(System.in); 
+		System.out.println("wciœnij enter"); //wciœnij enter gdy pod³¹czy siê ju¿ drugi ziomek
+		keyboard.nextLine();
+		while(true)
+		{
+			
+			System.out.println("Mo¿esz pisaæ z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nastêpne to inni u¿ytkownicy
+			String wiadomoœæ = keyboard.nextLine();
+			mySocket.send_message(wiadomoœæ, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));
+			
+		}
 		
 		
 		

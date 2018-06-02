@@ -12,9 +12,9 @@ public class UDPServer {
 	 static DatagramSocket datagramSocket;
 	 static Random rand;
 	 static int port;
-	 private static ArrayList<InetAddress> clientAddresses; // dane do zak³adek --  maks 32 userów na raz
-	 private static ArrayList<Integer> clientPorts;
-	 private static ArrayList<String> existingClients;
+	 public static ArrayList<InetAddress> clientAddresses; // dane do zak³adek --  maks 32 userów na raz
+	 public static ArrayList<Integer> clientPorts;
+	 public static ArrayList<String> existingClients;
 	 
 	 public UDPServer(int port)
 	 {

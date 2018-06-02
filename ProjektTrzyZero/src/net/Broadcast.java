@@ -23,9 +23,9 @@ public class Broadcast {
 	public void send_message(String msg, InetAddress dest, int port) throws IOException
 	{
 		 
-		 	String msgwithport ="PORT:" + port + msg;
+		 	
 
-	        byte[] byteMsg = msgwithport.getBytes("utf8");
+	        byte[] byteMsg = msg.getBytes("utf8");
 	        InetAddress serverAddress = dest;
 	        System.out.println(serverAddress);
 	        DatagramPacket message
@@ -58,9 +58,23 @@ public class Broadcast {
 	}
 	
 	
-	public void message_listener () // zrobiæ metodê która s³ucha na juz przydzielonym w konstruktorze porcie 
+	public void message_listener () throws IOException // zrobiæ metodê która s³ucha na juz przydzielonym w konstruktorze porcie 
 	{
-		
+		while (true){
+			DatagramPacket reclievedPacket
+            = new DatagramPacket( new byte[Config.BUFFER_SIZE], Config.BUFFER_SIZE);
+
+			datagramSocket.receive(reclievedPacket);
+
+			int length = reclievedPacket.getLength();
+			String message = new String(reclievedPacket.getData(), 0, length, "utf8");
+            
+			System.out.println(message);
+			
+			
+			
+			
+		}
 	}
 	
 	int getPort ()
