@@ -7,23 +7,66 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Broadcast {
-	static DatagramSocket datagramSocket;
+	DatagramSocket datagramSocket;
+	int port;
 	
-	public static void send_message(String msg) throws IOException
+	public Broadcast() throws SocketException //konstruktor przydziela losowy socket
 	{
-		 datagramSocket = new DatagramSocket();
+		datagramSocket = new DatagramSocket();
+		System.out.println("Da³em port: " + datagramSocket.getLocalPort());
+		port = datagramSocket.getLocalPort();
+	}
+	
+	public void send_message(String msg, InetAddress dest, int port) throws IOException
+	{
+		 
+		 	String msgwithport ="PORT:" + port + msg;
 
-	        byte[] byteMsg = msg.getBytes("utf8");
-	        InetAddress serverAddress = InetAddress.getByName("localhost");
+	        byte[] byteMsg = msgwithport.getBytes("utf8");
+	        InetAddress serverAddress = dest;
 	        System.out.println(serverAddress);
 	        DatagramPacket message
             = new DatagramPacket(
             		byteMsg, byteMsg.length);
 	        message.setAddress(serverAddress);
-	        message.setPort(Config.PORT);
+	        message.setPort(port);
 	        datagramSocket.send(message);
 	        
 	}
+	
+	public void hello() throws IOException // hello wysy³a wiadomoœæ o dostêpnoœci na porcie 9000
+	{
+			Scanner keyboard = new Scanner(System.in); //zapytanie o nick
+			System.out.println("Enter your name");
+			String nick = keyboard.nextLine();
+		 
+		 
+
+	        byte[] byteMsg = nick.getBytes("utf8");
+	        InetAddress serverAddress = Config.BROADCAST_ADDRESS;
+	        
+	        DatagramPacket message
+            = new DatagramPacket(
+            		byteMsg, byteMsg.length);
+	        message.setAddress(serverAddress);
+	        message.setPort(9000);	        
+	        datagramSocket.send(message);
+	        
+	}
+	
+	
+	public void message_listener () // zrobiæ metodê która s³ucha na juz przydzielonym w konstruktorze porcie 
+	{
+		
+	}
+	
+	int getPort ()
+	{
+		return port;
+	}
+	
+	
 }

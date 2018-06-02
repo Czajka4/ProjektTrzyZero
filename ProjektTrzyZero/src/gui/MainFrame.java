@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -11,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import net.Broadcast;
+import net.Config;
 import net.UDPServer;
 import net.miginfocom.swing.MigLayout;
 
@@ -95,15 +98,20 @@ public class MainFrame extends JFrame {
 		
 		
 	public static void main(String[] args) throws Exception {
+		
+		Broadcast mySocket = new Broadcast(); // stworzenie socketa do s³uchania od ziomów
+		UDPServer broadcastListener = new UDPServer(9000);// creating a server to listen to new users
+		
+		
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		mFrame = new MainFrame();//Creating Frame ( application )
-		Runnable connection = new Runnable() {
+		Runnable broadcast = new Runnable() {
             @Override
             public void run() {
 
                 
                 	try {
-						UDPServer.serwer();
+                		broadcastListener.serwer();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -112,10 +120,32 @@ public class MainFrame extends JFrame {
             }
            
 		};
+//		Runnable connection = new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                
+//                	try {
+//                		broadcastListener.serwer();
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//                	
+//            }
+//           
+//		};
 		mFrame.setVisible(true);
 		mFrame.setResizable(false);
-		executorService.submit(connection);
-		Broadcast.send_message("dupka");
+		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
+		
+		executorService.submit(broadcast); //w³¹czenie nas³uchiwania innych u¿ytkowników
+		mySocket.hello(); // wys³anie wiadomoœci ze swoim nickiem
+		//executorService.submit(connection);
+		
+		
+		
+
 
 		
 

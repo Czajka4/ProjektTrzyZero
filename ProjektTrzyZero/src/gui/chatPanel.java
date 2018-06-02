@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import net.Broadcast;
+import net.Config;
 import net.miginfocom.swing.MigLayout;
 
 public class chatPanel extends JPanel {
@@ -31,6 +34,8 @@ public class chatPanel extends JPanel {
 	
 	public void sendText() {
 	textFieldValue = textField.getText();
+	
+
  	   textArea.append(youString + "  " +  textFieldValue + "\n");     
  	   textField.setText("");
 	};	

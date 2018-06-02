@@ -21,6 +21,7 @@ public class MainPanelRight extends JPanel {
 	 * 
 	 */	
 	private static final long serialVersionUID = 1L;
+	
 
 	JTextField loginField = new JTextField("Random");
 	JLabel loginLabel = new JLabel("My Login:");
@@ -54,5 +55,8 @@ public class MainPanelRight extends JPanel {
 	
 	public String GetMyLogin() {
 		return loginField.getText();
+	}
+	public void setIpe(String ipe) {
+		ipField.setText(ipe);
 	}
 }
