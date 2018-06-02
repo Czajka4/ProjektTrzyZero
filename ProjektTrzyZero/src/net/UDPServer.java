@@ -19,9 +19,9 @@ public class UDPServer {
 	 public UDPServer(int port)
 	 {
 		 this.port = port;
-		 clientAddresses = new ArrayList(32); 
-	     clientPorts = new ArrayList(32);
-	     existingClients = new ArrayList(32);
+		 clientAddresses = new ArrayList(32);  // IP
+	     clientPorts = new ArrayList(32); //port
+	     existingClients = new ArrayList(32); //nick
 	 }
 	
 	
