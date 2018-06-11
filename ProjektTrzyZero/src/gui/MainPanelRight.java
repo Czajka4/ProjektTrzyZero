@@ -30,6 +30,7 @@ public class MainPanelRight extends JPanel {
 	JRadioButton onlineButton = new JRadioButton("ONLINE");
 	UsersTable usersTable = new UsersTable();
 	JButton refreshButton = new JButton("REFRESH");
+
 	
 	public MainPanelRight() {
 		setBackground(Color.WHITE);
@@ -41,7 +42,8 @@ public class MainPanelRight extends JPanel {
 		ipField.setFont(new Font("Arial", Font.ITALIC, 22));	
 		ipField.setEditable(false);
 		onlineButton.setBorder(new LineBorder(Color.BLACK, 5));
-			
+		
+		
 		
 	    setLayout(new MigLayout("", "[] []","[] [] [] [] []"));	
 	    add(loginLabel,"width 30%, height 6%,");
@@ -59,4 +61,16 @@ public class MainPanelRight extends JPanel {
 	public void setIpe(String ipe) {
 		ipField.setText(ipe);
 	}
+	
+	public void addUser(User user) {
+		usersTable.addUserToTable(user);		
+		}
+	
+	public boolean getStatusFromTable() {
+	boolean status = usersTable.getStatus();		
+	return status;
+	}
 }
+
+	
+

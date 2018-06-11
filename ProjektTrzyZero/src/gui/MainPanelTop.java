@@ -27,11 +27,7 @@ public class MainPanelTop extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 4163362475437360265L;
-	
-	
-	
-	
-	
+		
 	public MainPanelTop() {
 		
 	setLayout(new MigLayout("","[] []", "[] []"));	
@@ -39,7 +35,7 @@ public class MainPanelTop extends JPanel {
 	JLabel Title = new JLabel("Projekt 3.0 - Super LAN Chat");		
 	Title.setHorizontalAlignment(SwingConstants.CENTER);
 	Title.setFont(new Font("Tahoma", Font.BOLD, 40));		
-	Title.setToolTipText("Authors: MIKOĹ�AJ CZAJKA $ KAROL SCHEWE");
+	Title.setToolTipText("Authors: MIKOLAJ CZAJKA $ KAROL SCHEWE");
 	add(Title,"width 100%, height 100%, span,wrap");
 	
 	}

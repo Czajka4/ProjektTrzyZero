@@ -18,6 +18,8 @@ import net.Config;
 import net.UDPServer;
 import net.miginfocom.swing.MigLayout;
 
+   
+
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -27,8 +29,9 @@ public class MainFrame extends JFrame {
 	static Dimension addFrameDim; //dimension for small frame "adding charges"
 	MainPanelTop topPanel;
 	public static MainPanelLeft leftPanel; //panel where charges are display
-	static MainPanelRight rightPanel;			
-	
+	public static  MainPanelRight rightPanel;			
+	static boolean status;
+	public User newUser;
 
 
 
@@ -71,9 +74,6 @@ public class MainFrame extends JFrame {
 	rightPanel.setPreferredSize(rightPanelDim);	
 	topPanel.setPreferredSize(labelDim);
 
-
-
-
 	// ADDING ELEMENTS OF MAIN FRAME ///////
 
 	add(topPanel);
@@ -84,23 +84,14 @@ public class MainFrame extends JFrame {
 
 	////////////////////////////////////////
 
-
-
 	static Dimension getAddFrameDim(){ 	//dimension of small frames - adding and deleting charges
 		return addFrameDim;
-	}
-
-
-
-	 
-	 
-	               
-
 		
+	}
 		
 	public static void main(String[] args) throws Exception {
-		
-		Broadcast mySocket = new Broadcast(); // stworzenie socketa do s³uchania od ziomów
+			
+		Broadcast mySocket = new Broadcast(); // stworzenie socketa do sï¿½uchania od ziomï¿½w
 		UDPServer broadcastListener = new UDPServer(9000);// creating a server to listen to new users
 		
 		
@@ -110,30 +101,26 @@ public class MainFrame extends JFrame {
 		Runnable broadcast = new Runnable() {
             @Override
             public void run() {
-
                 
                 	try {
                 		broadcastListener.serwer();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-                	
+					}                	
             }
            
 		};
 		Runnable connection = new Runnable() {
             @Override
             public void run() {
-
                 
                 	try {
                 		mySocket.message_listener();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-                	
+					}                	
             }
            
 		};
@@ -141,27 +128,27 @@ public class MainFrame extends JFrame {
 		mFrame.setResizable(false);
 		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
 		
-		executorService.submit(broadcast); //w³¹czenie nas³uchiwania innych u¿ytkowników
-		executorService2.submit(connection); //nas³uchiwanie rozmów
-		mySocket.hello(); // wys³anie wiadomoœci ze swoim nickiem
+		executorService.submit(broadcast); //wï¿½ï¿½czenie nasï¿½uchiwania innych uï¿½ytkownikï¿½w
+		executorService2.submit(connection); //nasï¿½uchiwanie rozmï¿½w
+		mySocket.hello(); // wysï¿½anie wiadomoï¿½ci ze swoim nickiem
 		Scanner keyboard = new Scanner(System.in); 
-		System.out.println("wciœnij enter"); //wciœnij enter gdy pod³¹czy siê ju¿ drugi ziomek
-		keyboard.nextLine();
+		System.out.println("wciï¿½nij enter"); //wciï¿½nij enter gdy podï¿½ï¿½czy siï¿½ juï¿½ drugi ziomek
+		//keyboard.nextLine();
 		while(true)
 		{
 			
-			System.out.println("Mo¿esz pisaæ z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nastêpne to inni u¿ytkownicy
-			String wiadomoœæ = keyboard.nextLine();
-			mySocket.send_message(wiadomoœæ, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));
+			System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nastï¿½pne to inni uï¿½ytkownicy
+			String wiadomosc = keyboard.nextLine();
+			mySocket.send_message(wiadomosc, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));			
+			status = MainFrame.rightPanel.getStatusFromTable();
+			System.out.println(status);
 			
-		}
-		
-		
-		
-
-
-		
-
-		}
-		
+			// Elo, zrobiÄ‡ tak trzeba, Å¼e do tej definicji na dole siÄ™ wpisze loign ip i port
+			// User newUser = new User(userLogin, userIP, userPort);
+			// Jak juÅ¼ bÄ™dÄ™ miaÅ‚ tego usera z wpisanymi jego danymi to siÄ™ mogÄ™ bawiÄ‡ w dodawanie go,
+			// sprawdzanie czy juz taki jest, usuwanie go.
+			// SprÃ³buj wymyÅ›liÄ‡ funckje ktÃ³ra dostaje wiadomosc adres ip i port i wysyla ja tam elo
+			
+		}	
+	}			
 	}

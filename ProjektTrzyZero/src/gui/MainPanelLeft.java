@@ -14,17 +14,23 @@ public class MainPanelLeft extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	MainTabbedPane tabbedPane;
+	
 	public MainPanelLeft() {
 		setLayout(new MigLayout());
 		setBackground(Color.WHITE);
 		setBorder(new LineBorder(Color.BLACK, 5));
 	
-		MainTabbedPane tabbedPane = new MainTabbedPane(); //pane with cards with chatting users
+		 tabbedPane = new MainTabbedPane(); //pane with cards with chatting users
 		add(tabbedPane,"width 100%, height 100%");
-		
-		
 		
 		
 	
 	}
+	
+	public void addTabe(User user) {
+		tabbedPane.addTab(user);
+	}
+	
+	
 }

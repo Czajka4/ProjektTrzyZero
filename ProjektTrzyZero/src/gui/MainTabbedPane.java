@@ -13,7 +13,8 @@ import net.miginfocom.swing.MigLayout;
 
 public class MainTabbedPane extends JTabbedPane {
 	
-	List<JPanel> panelList = new ArrayList<JPanel>();
+	List<chatPanel> panelList = new ArrayList<chatPanel>(32);
+	int nn = 0;
 
 	// add your JPanel object like this way
 	//panelList.add(yourPanel);
@@ -23,22 +24,15 @@ public class MainTabbedPane extends JTabbedPane {
 	
 	//panelList.get(1) = tab1;
 	//addTab("user1", panelList.get(1));	
-	
-	chatPanel tab1,tab2;	
-	public MainTabbedPane() {
-		tab1 = new chatPanel();		
-		addTab("user1", tab1);	
 		
-		
-		tab2 = new chatPanel();	
-		addTab("user2", tab2);
-		
-		
-		
-			
+	public MainTabbedPane() {			
 	}
 	
-	
+	public void addTab(User user) {
+		panelList.add(new chatPanel());
+		addTab(user.getLogin(), panelList.get(nn));
+		nn++;
+	}
 	
 	
 	
