@@ -2,11 +2,14 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import net.UDPServer;
 
 public class UsersTable extends JTable {
 	
@@ -21,7 +24,7 @@ public class UsersTable extends JTable {
 	public double userPort = 0;
 	User newUser;
 	public UsersTable() {
-		
+	ArrayList<User> UsersList = new ArrayList(32);
 		
 		
 		// add header of the table
@@ -31,7 +34,12 @@ public class UsersTable extends JTable {
 		 dtm.setColumnIdentifiers(header);		  									
 		  this.setModel(dtm);	
 		  
-		  dtm.addRow(new Object[] { "JP2", "192.420.69.xD", "2137"});
+		  UsersList = UDPServer.sendUserData();
+		  
+		for(int ii = 0; ii<UsersList.size(); ii++) {
+			newUser = UsersList.get(ii);
+			addUserToTable(newUser);
+		}
 		  
 		  addMouseListener(new java.awt.event.MouseAdapter(){
 			  public void mouseClicked(java.awt.event.MouseEvent e){

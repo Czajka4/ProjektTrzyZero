@@ -23,7 +23,7 @@ public class MainPanelRight extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 
-	JTextField loginField = new JTextField("Random");
+	static JTextField loginField = new JTextField("");
 	JLabel loginLabel = new JLabel("My Login:");
 	JTextField ipField = new JTextField("192.168.1.1");
 	JLabel ipLabel = new JLabel("My IP:   ");
@@ -55,7 +55,7 @@ public class MainPanelRight extends JPanel {
 		add(refreshButton,"width 30%, height 5%, center");
 	}
 	
-	public String GetMyLogin() {
+	public static String GetMyLogin() {
 		return loginField.getText();
 	}
 	public void setIpe(String ipe) {

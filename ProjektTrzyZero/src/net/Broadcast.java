@@ -9,6 +9,9 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import gui.MainPanelLeft;
+import gui.MainPanelRight;
+
 public class Broadcast {
 	DatagramSocket datagramSocket;
 	int port;
@@ -16,7 +19,7 @@ public class Broadcast {
 	public Broadcast() throws SocketException //konstruktor przydziela losowy socket
 	{
 		datagramSocket = new DatagramSocket();
-		System.out.println("Da³em port: " + datagramSocket.getLocalPort());
+		System.out.println("{Port: " + datagramSocket.getLocalPort());
 		port = datagramSocket.getLocalPort();
 	}
 	
@@ -37,14 +40,12 @@ public class Broadcast {
 	        
 	}
 	
-	public void hello() throws IOException // hello wysy³a wiadomoœæ o dostêpnoœci na porcie 9000
+	public void hello() throws IOException // hello wysyï¿½a wiadomoï¿½ï¿½ o dostï¿½pnoï¿½ci na porcie 9000
 	{
-			Scanner keyboard = new Scanner(System.in); //zapytanie o nick
-			System.out.println("Enter your name");
-			String nick = keyboard.nextLine();
+		//	Scanner keyboard = new Scanner(System.in); //zapytanie o nick
+		//	System.out.println("Enter your name");
+			String nick = MainPanelRight.GetMyLogin();
 		 
-		 
-
 	        byte[] byteMsg = nick.getBytes("utf8");
 	        InetAddress serverAddress = Config.BROADCAST_ADDRESS;
 	        
@@ -58,7 +59,7 @@ public class Broadcast {
 	}
 	
 	
-	public void message_listener () throws IOException // zrobiæ metodê która s³ucha na juz przydzielonym w konstruktorze porcie 
+	public void message_listener () throws IOException // zrobiï¿½ metodï¿½ ktï¿½ra sï¿½ucha na juz przydzielonym w konstruktorze porcie 
 	{
 		while (true){
 			DatagramPacket reclievedPacket
@@ -69,11 +70,7 @@ public class Broadcast {
 			int length = reclievedPacket.getLength();
 			String message = new String(reclievedPacket.getData(), 0, length, "utf8");
             
-			System.out.println(message);
-			
-			
-			
-			
+			System.out.println(message);			
 		}
 	}
 	

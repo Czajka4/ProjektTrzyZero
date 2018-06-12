@@ -29,7 +29,7 @@ public class MainTabbedPane extends JTabbedPane {
 	}
 	
 	public void addTab(User user) {
-		panelList.add(new chatPanel());
+		panelList.add(new chatPanel(user));
 		addTab(user.getLogin(), panelList.get(nn));
 		nn++;
 	}

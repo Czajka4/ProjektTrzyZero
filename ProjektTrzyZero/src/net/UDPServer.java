@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+import gui.User;
+
 public class UDPServer {
 
 	 static DatagramSocket datagramSocket;
 	 static Random rand;
 	 static int port;
-	 public static ArrayList<InetAddress> clientAddresses; // dane do zak³adek --  maks 32 userów na raz
+	 public static ArrayList<InetAddress> clientAddresses; // dane do zakï¿½adek --  maks 32 userï¿½w na raz
 	 public static ArrayList<Integer> clientPorts;
 	 public static ArrayList<String> existingClients;
 	 
@@ -27,16 +29,14 @@ public class UDPServer {
 	
     public static void serwer() throws Exception{
 
-        //Otwarcie gniazda z portem 9000 - tam szukamy nowych userów
+        //Otwarcie gniazda z portem 9000 - tam szukamy nowych userï¿½w
     	try{
     		datagramSocket = new DatagramSocket(port);
     		System.out.println(datagramSocket.getLocalPort() + "port");
     		}
     	catch (Exception BindException)
-    	{
-    		
-    		
-    		System.out.println("port nie dzia³a");// jezeli sprobujesz uruchomic dwa razy ten program to siê skraszuje bo nie mozna miec dwoch
+    	{    		
+    		System.out.println("port nie dziaï¿½a");// jezeli sprobujesz uruchomic dwa razy ten program to siï¿½ skraszuje bo nie mozna miec dwoch
     	} 											// wtyczek o tym samym porcie
     	
         byte[] byteResponse = "OK".getBytes("utf8"); 
@@ -56,23 +56,30 @@ public class UDPServer {
             InetAddress address = reclievedPacket.getAddress();
             int port = reclievedPacket.getPort();
            
-            existingClients.add(message); // dodanie do arraylist danych potrzebnych do stworzenia zak³adek
+            existingClients.add(message); // dodanie do arraylist danych potrzebnych do stworzenia zakï¿½adek
             clientAddresses.add(address);
-            clientPorts.add(port);
-            
-           
-           
-
-            
+            clientPorts.add(port);   
            
 
             DatagramPacket response
                     = new DatagramPacket(
-                        byteResponse, byteResponse.length, address, port); // wysy³a okeja, ale nie mamy jeszcze s³uchania
+                        byteResponse, byteResponse.length, address, port); // wysyï¿½a okeja, ale nie mamy jeszcze sï¿½uchania
 
             datagramSocket.send(response);
-            System.out.println("wys³a³em wiadomoœæ na: "+address+ "port: " + port); //potwierdzenie wys³ania okeja na adres ip i port
+            System.out.println("wysï¿½aï¿½em wiadomoï¿½ï¿½ na: "+address+ "port: " + port); //potwierdzenie wysï¿½ania okeja na adres ip i port
         }
     }
+    public static ArrayList<User> sendUserData() {
+    	ArrayList<User> UsersList = new ArrayList(32);
+    	System.out.println("xd");
+    	for(int nn=0; nn < clientAddresses.size(); nn++) {
+    		UsersList.add(new User(existingClients.get(nn).toString(), clientAddresses.get(nn).toString(), clientPorts.get(nn)));
+    		System.out.println(clientAddresses.get(nn).toString() + "x");
+     	}    	 		
+    	return UsersList;
+    	    	
+    }
+    
+    
     
 }

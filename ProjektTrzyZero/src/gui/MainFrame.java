@@ -32,8 +32,8 @@ public class MainFrame extends JFrame {
 	public static  MainPanelRight rightPanel;			
 	static boolean status;
 	public User newUser;
-
-
+	public static EnterNameFrame nameFrame;
+	
 
 
 
@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 	double rightPanelWidth = leftPanelHeight / 2;		
 	double rightPanelHeight = leftPanelHeight + labelHeight;
 	rightPanelDim = new Dimension((int) rightPanelWidth, (int) rightPanelHeight);	
-
+	
 	double addFrameHeight = 0.2 * rightPanelHeight;
 	double addFrameWidth = 0.9 * rightPanelWidth;
 	addFrameDim = new Dimension((int) addFrameWidth, (int) addFrameHeight);		
@@ -85,19 +85,32 @@ public class MainFrame extends JFrame {
 	////////////////////////////////////////
 
 	static Dimension getAddFrameDim(){ 	//dimension of small frames - adding and deleting charges
-		return addFrameDim;
-		
+		return addFrameDim;		
 	}
 		
+	
+	
+	
+	// MAIN MMMMMMMMMMMMMMMMMMMMMMMM
+	
 	public static void main(String[] args) throws Exception {
+			nameFrame = new EnterNameFrame();
+			nameFrame.setVisible(true);
+			String testName = MainPanelRight.GetMyLogin();
 			
+			while(testName.equals("")) {
+				Thread.sleep(50);
+				testName = MainPanelRight.GetMyLogin();
+			}
+			
+		
+					
 		Broadcast mySocket = new Broadcast(); // stworzenie socketa do s�uchania od ziom�w
 		UDPServer broadcastListener = new UDPServer(9000);// creating a server to listen to new users
 		
 		
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		ExecutorService executorService2 = Executors.newFixedThreadPool(10);
-		mFrame = new MainFrame();//Creating Frame ( application )
 		Runnable broadcast = new Runnable() {
             @Override
             public void run() {
@@ -124,9 +137,7 @@ public class MainFrame extends JFrame {
             }
            
 		};
-		mFrame.setVisible(true);
-		mFrame.setResizable(false);
-		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
+		
 		
 		executorService.submit(broadcast); //w��czenie nas�uchiwania innych u�ytkownik�w
 		executorService2.submit(connection); //nas�uchiwanie rozm�w
@@ -134,14 +145,20 @@ public class MainFrame extends JFrame {
 		Scanner keyboard = new Scanner(System.in); 
 		System.out.println("wci�nij enter"); //wci�nij enter gdy pod��czy si� ju� drugi ziomek
 		//keyboard.nextLine();
+		
+		Thread.sleep(10);
+		mFrame = new MainFrame();//Creating Frame ( application )
+		mFrame.setVisible(true);
+		mFrame.setResizable(false);
+		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
+		
 		while(true)
 		{
 			
-			System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
-			String wiadomosc = keyboard.nextLine();
-			mySocket.send_message(wiadomosc, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));			
-			status = MainFrame.rightPanel.getStatusFromTable();
-			System.out.println(status);
+			//System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
+			//String wiadomosc = keyboard.nextLine();
+		//	mySocket.send_message(wiadomosc, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));			
+			
 			
 			// Elo, zrobić tak trzeba, że do tej definicji na dole się wpisze loign ip i port
 			// User newUser = new User(userLogin, userIP, userPort);

@@ -41,7 +41,7 @@ public class chatPanel extends JPanel {
 	};	
 	
 	
-	public chatPanel() {
+	public chatPanel(User user) {
 			
 		textArea.setEditable(false);
 		textArea.setFont(new Font("Serif", Font.ITALIC, 16));
