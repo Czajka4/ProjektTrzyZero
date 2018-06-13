@@ -33,6 +33,7 @@ public class MainFrame extends JFrame {
 	static boolean status;
 	public User newUser;
 	public static EnterNameFrame nameFrame;
+	static int num_of_tabs;
 	
 
 
@@ -94,14 +95,7 @@ public class MainFrame extends JFrame {
 	// MAIN MMMMMMMMMMMMMMMMMMMMMMMM
 	
 	public static void main(String[] args) throws Exception {
-			nameFrame = new EnterNameFrame();
-			nameFrame.setVisible(true);
-			String testName = MainPanelRight.GetMyLogin();
 			
-			while(testName.equals("")) {
-				Thread.sleep(50);
-				testName = MainPanelRight.GetMyLogin();
-			}
 			
 		
 					
@@ -141,9 +135,18 @@ public class MainFrame extends JFrame {
 		
 		executorService.submit(broadcast); //w��czenie nas�uchiwania innych u�ytkownik�w
 		executorService2.submit(connection); //nas�uchiwanie rozm�w
+		
+		nameFrame = new EnterNameFrame();
+		nameFrame.setVisible(true);
+		String testName = MainPanelRight.GetMyLogin();
+		
+		while(testName.equals("")) {
+			Thread.sleep(50);
+			testName = MainPanelRight.GetMyLogin();
+		}
 		mySocket.hello(); // wys�anie wiadomo�ci ze swoim nickiem
-		Scanner keyboard = new Scanner(System.in); 
-		System.out.println("wci�nij enter"); //wci�nij enter gdy pod��czy si� ju� drugi ziomek
+		//Scanner keyboard = new Scanner(System.in); 
+		//System.out.println("wci�nij enter"); //wci�nij enter gdy pod��czy si� ju� drugi ziomek
 		//keyboard.nextLine();
 		
 		Thread.sleep(10);
@@ -152,8 +155,18 @@ public class MainFrame extends JFrame {
 		mFrame.setResizable(false);
 		mFrame.rightPanel.setIpe(Config.IP_ADDRESS+"");
 		
+		
+		
 		while(true)
 		{
+			
+			if(num_of_tabs < broadcastListener.existingClients.size())
+			{
+				
+				mySocket.hello();
+				num_of_tabs++;
+				
+			}
 			
 			//System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
 			//String wiadomosc = keyboard.nextLine();

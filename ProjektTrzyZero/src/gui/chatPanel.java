@@ -35,6 +35,7 @@ public class chatPanel extends JPanel {
 	public void sendText() {
 	textFieldValue = textField.getText();
 	
+	
 
  	   textArea.append(youString + "  " +  textFieldValue + "\n");     
  	   textField.setText("");

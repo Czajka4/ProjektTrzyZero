@@ -55,6 +55,7 @@ public class Broadcast {
 	        message.setAddress(serverAddress);
 	        message.setPort(9000);	        
 	        datagramSocket.send(message);
+	        System.out.println("nadaję ci imię: "+ nick);
 	        
 	}
 	

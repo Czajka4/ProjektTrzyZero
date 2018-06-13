@@ -17,6 +17,7 @@ public class UDPServer {
 	 public static ArrayList<InetAddress> clientAddresses; // dane do zak�adek --  maks 32 user�w na raz
 	 public static ArrayList<Integer> clientPorts;
 	 public static ArrayList<String> existingClients;
+	 static Boolean exist = new Boolean(false);
 	 
 	 public UDPServer(int port)
 	 {
@@ -51,15 +52,25 @@ public class UDPServer {
             int length = reclievedPacket.getLength();
             String message =
                     new String(reclievedPacket.getData(), 0, length, "utf8");
-            System.out.println(message);
+            
              // Port i host który wysłał nam zapytanie
             InetAddress address = reclievedPacket.getAddress();
             int port = reclievedPacket.getPort();
-           
-            existingClients.add(message); // dodanie do arraylist danych potrzebnych do stworzenia zak�adek
-            clientAddresses.add(address);
-            clientPorts.add(port);   
-           
+            
+            for(int i=0;i<clientAddresses.size();i++){
+                if(existingClients.get(i).equals(message)){
+                    exist=true;
+                    break;
+                }
+            }
+            if(exist == false)
+            {
+            	existingClients.add(message); // dodanie do arraylist danych potrzebnych do stworzenia zak�adek
+            	clientAddresses.add(address);
+            	clientPorts.add(port);   
+            	System.out.println("dodano użytkownika: "+message);
+            }
+           exist = false;
 
             DatagramPacket response
                     = new DatagramPacket(
@@ -67,6 +78,8 @@ public class UDPServer {
 
             datagramSocket.send(response);
             System.out.println("wys�a�em wiadomo�� na: "+address+ "port: " + port); //potwierdzenie wys�ania okeja na adres ip i port
+            
+            
         }
     }
     public static ArrayList<User> sendUserData() {

@@ -12,8 +12,8 @@ public class Config {
     static {
         try{
             MULTICAST_ADDRESS = InetAddress.getByName("239.255.42.99");
-            IP_ADDRESS = InetAddress.getByName("192.168.1.208");
-            BROADCAST_ADDRESS = InetAddress.getByName("192.168.1.255");
+            IP_ADDRESS = InetAddress.getByName("192.168.0.15");
+            BROADCAST_ADDRESS = InetAddress.getByName("192.168.0.255");
         }catch (UnknownHostException e){
             throw new RuntimeException(e);
         }
