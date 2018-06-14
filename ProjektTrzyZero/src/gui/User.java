@@ -18,9 +18,6 @@ public class User {
 		 port = port1;
 	}
 	
-	
-
-
 public void setIP(String ip){
 	IP = ip;
 }

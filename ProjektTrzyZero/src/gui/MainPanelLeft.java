@@ -23,9 +23,7 @@ public class MainPanelLeft extends JPanel {
 	
 		 tabbedPane = new MainTabbedPane(); //pane with cards with chatting users
 		add(tabbedPane,"width 100%, height 100%");
-		
-		
-	
+			
 	}
 	
 	public void addTabe(User user) {

@@ -18,11 +18,14 @@ public class UsersTable extends JTable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	DefaultTableModel dtm = new DefaultTableModel(0, 0);
+	static DefaultTableModel dtm = new DefaultTableModel(0, 0);
 	public boolean status = false;
 	public String userName, userIP = "";
 	public double userPort = 0;
-	User newUser;
+	static User newUser;
+	
+	
+	
 	public UsersTable() {
 	ArrayList<User> UsersList = new ArrayList(32);
 		
@@ -43,23 +46,34 @@ public class UsersTable extends JTable {
 		  
 		  addMouseListener(new java.awt.event.MouseAdapter(){
 			  public void mouseClicked(java.awt.event.MouseEvent e){
-				  int row = rowAtPoint(e.getPoint());
-				  status = true;
-				  userName = (String) getValueAt(row,0);
-				  userIP =  (String) getValueAt(row,1);
-				  userPort = (double) getValueAt(row,2);
-				  newUser = new User(userName, userIP, userPort);
-				  MainFrame.leftPanel.addTabe(newUser);
-				  System.out.println(userName);
-				  } 
+				  if(getRowCount() != 0) {
+					  int row = rowAtPoint(e.getPoint());
+					  status = true;
+					  userName = (String) getValueAt(row,0);
+					  userIP =  (String) getValueAt(row,1);
+					  userPort = (double) getValueAt(row,2);
+					  newUser = new User(userName, userIP, userPort);
+					  MainFrame.leftPanel.addTabe(newUser);
+					  System.out.println(userName);
+				  }
+				 } 
 		 });
 	}
-	public void addUserToTable(User newUser) {		
+	public static void addUserToTable(User newUser) {		
 		 dtm.addRow(new Object[] { newUser.getLogin(), newUser.getIP(), newUser.getPort()});
 				
 	}
 		
-
+	public static void RefreshTable() {
+		ArrayList<User> UsersList2 = new ArrayList(32);
+	
+		UsersList2 = UDPServer.sendUserData();
+		  
+		for(int ii = 0; ii<UsersList2.size(); ii++) {
+			newUser = UsersList2.get(ii);
+			addUserToTable(newUser);	
+	}
+	}
 		
 	public boolean getStatus() {
 		return status;

@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,6 +45,12 @@ public class MainPanelRight extends JPanel {
 		ipField.setEditable(false);
 		onlineButton.setBorder(new LineBorder(Color.BLACK, 5));
 		
+		
+		refreshButton.addActionListener(new ActionListener(){   
+            public void actionPerformed(ActionEvent e) {
+            	       UsersTable.RefreshTable();         	          	
+            	}
+			});				
 		
 		
 	    setLayout(new MigLayout("", "[] []","[] [] [] [] []"));	

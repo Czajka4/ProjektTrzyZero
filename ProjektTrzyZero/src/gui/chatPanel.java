@@ -1,11 +1,13 @@
 package gui;
 
-import java.awt.Font;
+import java.awt.Font; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -31,30 +33,40 @@ public class chatPanel extends JPanel {
 	
 	String textFieldValue = "";
 	String youString = "You:";
+	String cilentIP = "";
 	
-	public void sendText() {
-	textFieldValue = textField.getText();
-	
-	
-
- 	   textArea.append(youString + "  " +  textFieldValue + "\n");     
- 	   textField.setText("");
+	public void sendText(User user) throws IOException, IOException {
+		textFieldValue = textField.getText();
+ 	   	textArea.append(youString + "  " +  textFieldValue + "\n");     
+ 	   	textField.setText("");
+ 	   	Broadcast.send_message(textFieldValue, InetAddress.getByName( user.getIP()), (int) user.getPort());
+ 	   	
 	};	
 	
 	
-	public chatPanel(User user) {
-			
+	
+	public void writeText(String message) throws IOException, IOException {			
+		//String message = textField.getText();
+ 	   //	textArea.append(user.getLogin() + "  " +  message + "\n");      	   	   	
+	};	
+	
+	public chatPanel(User user) {			
 		textArea.setEditable(false);
 		textArea.setFont(new Font("Serif", Font.ITALIC, 16));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);	
 		
 		//areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	
+		cilentIP = user.getIP();
 		
 		sendButton.addActionListener(new ActionListener(){   
             public void actionPerformed(ActionEvent e) {
-            	    sendText();            	          	
+            	    try {
+						sendText(user);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}            	          	
             	}
 			});		
 		
@@ -62,7 +74,12 @@ public class chatPanel extends JPanel {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    	 sendText();      
+                    	 try {
+							sendText(user);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}      
                     }
                 }
             });
@@ -73,6 +90,11 @@ public class chatPanel extends JPanel {
 		add(textField,"width 80%, height 10%");
 		add(sendButton,"width 20%, height 10%, wrap, span");		
 	}
+	
+	public String getClientLogin() {
+		return cilentIP;
+	}
+	
 	
 	
 }

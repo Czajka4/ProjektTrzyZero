@@ -30,6 +30,7 @@ public class UDPServer {
 	
     public static void serwer() throws Exception{
 
+    	//Broadcast.hello();
         //Otwarcie gniazda z portem 9000 - tam szukamy nowych user�w
     	try{
     		datagramSocket = new DatagramSocket(port);

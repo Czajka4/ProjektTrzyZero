@@ -11,9 +11,10 @@ import java.util.Scanner;
 
 import gui.MainPanelLeft;
 import gui.MainPanelRight;
+import gui.MainTabbedPane;
 
 public class Broadcast {
-	DatagramSocket datagramSocket;
+	static DatagramSocket datagramSocket;
 	int port;
 	
 	public Broadcast() throws SocketException //konstruktor przydziela losowy socket
@@ -23,12 +24,9 @@ public class Broadcast {
 		port = datagramSocket.getLocalPort();
 	}
 	
-	public void send_message(String msg, InetAddress dest, int port) throws IOException
+	public static void send_message(String msg, InetAddress dest, int port) throws IOException
 	{
-		 
-		 	
-
-	        byte[] byteMsg = msg.getBytes("utf8");
+		    byte[] byteMsg = msg.getBytes("utf8");
 	        InetAddress serverAddress = dest;
 	        System.out.println(serverAddress);
 	        DatagramPacket message
@@ -40,7 +38,7 @@ public class Broadcast {
 	        
 	}
 	
-	public void hello() throws IOException // hello wysy�a wiadomo�� o dost�pno�ci na porcie 9000
+	public static void hello() throws IOException // hello wysy�a wiadomo�� o dost�pno�ci na porcie 9000
 	{
 		//	Scanner keyboard = new Scanner(System.in); //zapytanie o nick
 		//	System.out.println("Enter your name");
@@ -55,8 +53,7 @@ public class Broadcast {
 	        message.setAddress(serverAddress);
 	        message.setPort(9000);	        
 	        datagramSocket.send(message);
-	        System.out.println("nadaję ci imię: "+ nick);
-	        
+	        System.out.println("nadaję ci imię: "+ nick);	        
 	}
 	
 	
@@ -70,8 +67,10 @@ public class Broadcast {
 
 			int length = reclievedPacket.getLength();
 			String message = new String(reclievedPacket.getData(), 0, length, "utf8");
-            
-			System.out.println(message);			
+			InetAddress address = reclievedPacket.getAddress();
+			String IP = address.toString();
+			System.out.println(message);	
+			MainTabbedPane.writeMessage(IP, message);
 		}
 	}
 	

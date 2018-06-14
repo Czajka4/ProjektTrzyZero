@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Font;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class MainTabbedPane extends JTabbedPane {
 	
-	List<chatPanel> panelList = new ArrayList<chatPanel>(32);
+	static List<chatPanel> panelList = new ArrayList<chatPanel>(32);
 	int nn = 0;
 
 	// add your JPanel object like this way
@@ -34,7 +35,17 @@ public class MainTabbedPane extends JTabbedPane {
 		nn++;
 	}
 	
-	
+	public static void writeMessage(String IP, String message) throws IOException {
+		chatPanel tempPanel;
+		for(int ii=0; ii<panelList.size(); ii++) {
+			tempPanel = panelList.get(ii);
+			if(tempPanel.getClientLogin().equals(IP)) {
+				tempPanel.writeText(message);				
+			}				
+		}
+		
+		
+	}
 	
 	
 	
