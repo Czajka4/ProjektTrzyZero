@@ -1,40 +1,43 @@
 package gui;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class User {
-	private String IP;
+	private InetAddress IP;
 	private String login;
-	private double port;
+	private int port;
 	
 	
 	public User() {
 		 login = "random";
-		 IP = "192.random";		
+		  	
 		 port = 00000;
 	}
 	
-	public User(String login1, String ip,  double port1) {
+	public User(String login1, InetAddress ip,  int port1) {
 		 login = login1;
-		IP = ip;		
+		 IP = ip;		
 		 port = port1;
 	}
 	
-public void setIP(String ip){
-	IP = ip;
+public void setIP(String ip) throws UnknownHostException{
+	IP = InetAddress.getByName(ip);
 }
 public void setLogin(String login1){
 	login = login1;
 }
-public void setPort(double port1){
+public void setPort(int port1){
 	port = port1;
 }
 
-public String getIP(){
+public InetAddress getIP(){
 	return IP;
 }
 public String getLogin(){
 	return login;
 }
-public double getPort(){
+public int getPort(){
 	return port;
 }
 }

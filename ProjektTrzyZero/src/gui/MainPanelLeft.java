@@ -14,7 +14,7 @@ public class MainPanelLeft extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MainTabbedPane tabbedPane;
+	static MainTabbedPane tabbedPane;
 	
 	public MainPanelLeft() {
 		setLayout(new MigLayout());
@@ -26,8 +26,8 @@ public class MainPanelLeft extends JPanel {
 			
 	}
 	
-	public void addTabe(User user) {
-		tabbedPane.addTab(user);
+	public static void addTabs(User user) {
+		tabbedPane.addTabe(user);
 	}
 	
 	

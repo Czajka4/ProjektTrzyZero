@@ -71,13 +71,10 @@ public class MainPanelRight extends JPanel {
 	}
 	
 	public void addUser(User user) {
-		usersTable.addUserToTable(user);		
+		UsersTable.addUserToTable(user);		
 		}
 	
-	public boolean getStatusFromTable() {
-	boolean status = usersTable.getStatus();		
-	return status;
-	}
+	
 }
 
 	

@@ -3,15 +3,10 @@ package gui;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import net.Broadcast;
 import net.Config;

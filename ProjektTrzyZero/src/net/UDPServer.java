@@ -1,10 +1,8 @@
 package net;
-import java.net.BindException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import gui.User;
@@ -22,10 +20,10 @@ public class UDPServer {
 	 
 	 public UDPServer(int port)
 	 {
-		 this.port = port;
-		 clientAddresses = new ArrayList(32);  // IP
-	     clientPorts = new ArrayList(32); //port
-	     existingClients = new ArrayList(32); //nick
+		 UDPServer.port = port;
+		 clientAddresses = new ArrayList<InetAddress>(32);  // IP
+	     clientPorts = new ArrayList<Integer>(32); //port
+	     existingClients = new ArrayList<String>(32); //nick
 	 }
 	
 	
@@ -86,10 +84,10 @@ public class UDPServer {
         }
     }
     public static ArrayList<User> sendUserData() {
-    	ArrayList<User> UsersList = new ArrayList(32);
+    	ArrayList<User> UsersList = new ArrayList<User>(32);
     	System.out.println("xd");
     	for(int nn=0; nn < clientAddresses.size(); nn++) {
-    		UsersList.add(new User(existingClients.get(nn).toString(), clientAddresses.get(nn).toString(), clientPorts.get(nn)));
+    		UsersList.add(new User(existingClients.get(nn).toString(), clientAddresses.get(nn), clientPorts.get(nn)));
     		System.out.println(clientAddresses.get(nn).toString() + "x");
      	}    	 		
     	return UsersList;

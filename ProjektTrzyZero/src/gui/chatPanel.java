@@ -1,23 +1,19 @@
 package gui;
 
-import java.awt.Font; 
+import java.awt.Font;  
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import net.Broadcast;
-import net.Config;
 import net.miginfocom.swing.MigLayout;
 
 public class chatPanel extends JPanel {
@@ -33,21 +29,21 @@ public class chatPanel extends JPanel {
 	
 	String textFieldValue = "";
 	String youString = "You:";
-	String cilentIP = "";
+	InetAddress cilentIP;
 	
 	public void sendText(User user) throws IOException, IOException {
 		textFieldValue = textField.getText();
  	   	textArea.append(youString + "  " +  textFieldValue + "\n");     
  	   	textField.setText("");
- 	   	Broadcast.send_message(textFieldValue, InetAddress.getByName( user.getIP()), (int) user.getPort());
+ 	   	Broadcast.send_message(textFieldValue,  user.getIP(), (int) user.getPort());
  	   	
 	};	
 	
 	
 	
 	public void writeText(String message) throws IOException, IOException {			
-		//String message = textField.getText();
- 	   //	textArea.append(user.getLogin() + "  " +  message + "\n");      	   	   	
+		
+ 	   textArea.append("  " +  message + "\n");      	   	   	
 	};	
 	
 	public chatPanel(User user) {			
@@ -91,7 +87,7 @@ public class chatPanel extends JPanel {
 		add(sendButton,"width 20%, height 10%, wrap, span");		
 	}
 	
-	public String getClientLogin() {
+	public InetAddress getClientIP() {
 		return cilentIP;
 	}
 	

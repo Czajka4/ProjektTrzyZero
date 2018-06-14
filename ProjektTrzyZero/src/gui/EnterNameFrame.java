@@ -1,7 +1,6 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Color; 
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,6 +13,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class EnterNameFrame extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTextField nameField;
 	
 	public EnterNameFrame() {

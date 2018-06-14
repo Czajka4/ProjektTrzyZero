@@ -1,22 +1,19 @@
 package gui;
 
-import java.awt.Font;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-
-import net.miginfocom.swing.MigLayout;
 
 public class MainTabbedPane extends JTabbedPane {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static List<chatPanel> panelList = new ArrayList<chatPanel>(32);
-	int nn = 0;
-
 	// add your JPanel object like this way
 	//panelList.add(yourPanel);
 
@@ -29,19 +26,26 @@ public class MainTabbedPane extends JTabbedPane {
 	public MainTabbedPane() {			
 	}
 	
-	public void addTab(User user) {
+	public  void addTabe(User user) {
 		panelList.add(new chatPanel(user));
+		int nn = panelList.size() - 1;
 		addTab(user.getLogin(), panelList.get(nn));
-		nn++;
+		
 	}
 	
 	public static void writeMessage(String IP, String message) throws IOException {
-		chatPanel tempPanel;
-		for(int ii=0; ii<panelList.size(); ii++) {
-			tempPanel = panelList.get(ii);
-			if(tempPanel.getClientLogin().equals(IP)) {
-				tempPanel.writeText(message);				
-			}				
+		
+		InetAddress clientIP;
+		for(int ii=0; ii<panelList.size(); ii++) {		
+			clientIP = panelList.get(ii).getClientIP();
+			if(clientIP.toString().equals(IP)) {
+				panelList.get(ii).writeText(message);				
+			}
+			else {
+				
+				//MainPanelLeft.addTabs(new User( "NewClient",  panelList.get(ii).getClientIP(),  9000));
+				
+			}
 		}
 		
 		

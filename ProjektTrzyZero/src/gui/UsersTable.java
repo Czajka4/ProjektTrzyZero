@@ -1,13 +1,10 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 import net.UDPServer;
 
@@ -19,25 +16,29 @@ public class UsersTable extends JTable {
 	private static final long serialVersionUID = 1L;
 	
 	static DefaultTableModel dtm = new DefaultTableModel(0, 0);
-	public boolean status = false;
-	public String userName, userIP = "";
-	public double userPort = 0;
+	
 	static User newUser;
+	public String userName;
+	InetAddress userIP;
+	public int userPort = 0;
+	
+	
 	
 	
 	
 	public UsersTable() {
-	ArrayList<User> UsersList = new ArrayList(32);
+	ArrayList<User> UsersList = new ArrayList<User>(32);
 		
 		
 		// add header of the table
 		String header[] = new String[] { "User", "IP", "Port"};
 
 		// add header in table model     
-		 dtm.setColumnIdentifiers(header);		  									
-		  this.setModel(dtm);	
+		 dtm.setColumnIdentifiers(header);	
+		 
+		 this.setModel(dtm);	
 		  
-		  UsersList = UDPServer.sendUserData();
+		 UsersList = UDPServer.sendUserData();
 		  
 		for(int ii = 0; ii<UsersList.size(); ii++) {
 			newUser = UsersList.get(ii);
@@ -48,12 +49,12 @@ public class UsersTable extends JTable {
 			  public void mouseClicked(java.awt.event.MouseEvent e){
 				  if(getRowCount() != 0) {
 					  int row = rowAtPoint(e.getPoint());
-					  status = true;
+					 
 					  userName = (String) getValueAt(row,0);
-					  userIP =  (String) getValueAt(row,1);
-					  userPort = (double) getValueAt(row,2);
+					  userIP =  (InetAddress) getValueAt(row,1);
+					  userPort =   (int) getValueAt(row,2);
 					  newUser = new User(userName, userIP, userPort);
-					  MainFrame.leftPanel.addTabe(newUser);
+					  MainPanelLeft.addTabs(newUser);
 					  System.out.println(userName);
 				  }
 				 } 
@@ -65,7 +66,7 @@ public class UsersTable extends JTable {
 	}
 		
 	public static void RefreshTable() {
-		ArrayList<User> UsersList2 = new ArrayList(32);
+		ArrayList<User> UsersList2 = new ArrayList<User>(32);
 	
 		UsersList2 = UDPServer.sendUserData();
 		  
@@ -75,9 +76,6 @@ public class UsersTable extends JTable {
 	}
 	}
 		
-	public boolean getStatus() {
-		return status;
-	}
 	public String userName() {
 			return userName;
 	}
