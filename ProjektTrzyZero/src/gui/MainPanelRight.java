@@ -52,8 +52,7 @@ public class MainPanelRight extends JPanel {
             	}
 			});				
 		
-		
-	    setLayout(new MigLayout("", "[] []","[] [] [] [] []"));	
+		 setLayout(new MigLayout("", "[] []","[] [] [] [] []"));	
 	    add(loginLabel,"width 30%, height 6%,");
 		add(loginField,"width 65%, height 6%, span");	
 		add(ipLabel,"width 30%, height 5%,");

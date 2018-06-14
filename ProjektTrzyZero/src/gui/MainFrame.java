@@ -91,9 +91,7 @@ public class MainFrame extends JFrame {
 	
 	public static void main(String[] args) throws Exception {
 			
-			
-		
-					
+								
 		Broadcast mySocket = new Broadcast(); // stworzenie socketa do s�uchania od ziom�w
 		UDPServer broadcastListener = new UDPServer(9000);// creating a server to listen to new users
 		
@@ -126,7 +124,6 @@ public class MainFrame extends JFrame {
             }
            
 		};
-		
 		
 		executorService.submit(broadcast); //w��czenie nas�uchiwania innych u�ytkownik�w
 		executorService2.submit(connection); //nas�uchiwanie rozm�w
@@ -163,17 +160,6 @@ public class MainFrame extends JFrame {
 				broadcastListener.send_hello = false;
 				System.out.println("wysyłam heloł");
 			}
-			
-			//System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
-			//String wiadomosc = keyboard.nextLine();
-		//	mySocket.send_message(wiadomosc, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));			
-			
-			
-			// Elo, zrobić tak trzeba, że do tej definicji na dole się wpisze loign ip i port
-			// User newUser = new User(userLogin, userIP, userPort);
-			// Jak już będę miał tego usera z wpisanymi jego danymi to się mogę bawić w dodawanie go,
-			// sprawdzanie czy juz taki jest, usuwanie go.
-			// Spróbuj wymyślić funckje która dostaje wiadomosc adres ip i port i wysyla ja tam elo
 			
 		}	
 	}			

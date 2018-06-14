@@ -25,8 +25,7 @@ public class chatPanel extends JPanel {
 	JTextField textField = new JTextField();
 	JTextArea textArea = new JTextArea();
 	JButton sendButton = new JButton("SEND");
-	//JScrollPane areaScrollPane = new JScrollPane(textArea);	
-	
+		
 	String textFieldValue = "";
 	String youString = "You:";
 	InetAddress cilentIP;
@@ -41,7 +40,7 @@ public class chatPanel extends JPanel {
 	
 	
 	
-	public void writeText(String message) throws IOException, IOException {			
+	public void writeText(String message) throws IOException, IOException {	
 		
  	   textArea.append("  " +  message + "\n");      	   	   	
 	};	
@@ -52,7 +51,6 @@ public class chatPanel extends JPanel {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);	
 		
-		//areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		cilentIP = user.getIP();
 		
 		sendButton.addActionListener(new ActionListener(){   

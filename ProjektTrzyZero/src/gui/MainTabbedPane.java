@@ -14,15 +14,7 @@ public class MainTabbedPane extends JTabbedPane {
 	 */
 	private static final long serialVersionUID = 1L;
 	static List<chatPanel> panelList = new ArrayList<chatPanel>(32);
-	// add your JPanel object like this way
-	//panelList.add(yourPanel);
-
-	// retrieve your JPanel object from list
-	//JPanel panel = panelList.get(index);
-	
-	//panelList.get(1) = tab1;
-	//addTab("user1", panelList.get(1));	
-		
+			
 	public MainTabbedPane() {			
 	}
 	

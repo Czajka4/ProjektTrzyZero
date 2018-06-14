@@ -22,10 +22,6 @@ public class UsersTable extends JTable {
 	InetAddress userIP;
 	public int userPort = 0;
 	
-	
-	
-	
-	
 	public UsersTable() {
 	ArrayList<User> UsersList = new ArrayList<User>(32);
 		
