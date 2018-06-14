@@ -159,14 +159,17 @@ public class MainFrame extends JFrame {
 		
 		while(true)
 		{
-			
-			if(num_of_tabs < broadcastListener.existingClients.size())
-			{				
-				mySocket.hello();
-				num_of_tabs++;
+			Thread.sleep(2000);
+			if(broadcastListener.send_hello == true)
+			{
 				
+				
+				mySocket.hello();
+				broadcastListener.send_hello = false;
+				System.out.println("wysyłam heloł");
 			}
-						//System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
+			
+			//System.out.println("Mozesz pisacc z:" + broadcastListener.existingClients.get(1)); // 0 to ty sam -- nast�pne to inni u�ytkownicy
 			//String wiadomosc = keyboard.nextLine();
 		//	mySocket.send_message(wiadomosc, broadcastListener.clientAddresses.get(1), broadcastListener.clientPorts.get(1));			
 			
@@ -176,6 +179,7 @@ public class MainFrame extends JFrame {
 			// Jak już będę miał tego usera z wpisanymi jego danymi to się mogę bawić w dodawanie go,
 			// sprawdzanie czy juz taki jest, usuwanie go.
 			// Spróbuj wymyślić funckje która dostaje wiadomosc adres ip i port i wysyla ja tam elo
+			
 		}	
 	}			
 	}

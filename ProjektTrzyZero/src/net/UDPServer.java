@@ -18,6 +18,7 @@ public class UDPServer {
 	 public static ArrayList<Integer> clientPorts;
 	 public static ArrayList<String> existingClients;
 	 static Boolean exist = new Boolean(false);
+	 public static Boolean send_hello = new Boolean(false);
 	 
 	 public UDPServer(int port)
 	 {
@@ -70,6 +71,7 @@ public class UDPServer {
             	clientAddresses.add(address);
             	clientPorts.add(port);   
             	System.out.println("dodano użytkownika: "+message);
+            	send_hello = true;
             }
            exist = false;
 
